@@ -33,14 +33,12 @@ def conv_layer(inpt, filter_shape, stride):
 
 def residual_block(inpt, output_depth, down_sample, projection=False):
     bernoulli = np.random.random_integers(0, 1)
-    # print 'skipped layers designated'
     input_depth = inpt.get_shape().as_list()[3]
     if down_sample:
         filter_ = [1,2,2,1]
         inpt = tf.nn.max_pool(inpt, ksize=filter_, strides=filter_, padding='SAME')
 
-    conv1 = conv_layer(inpt, [3, 3, input_depth, output_depth], 1)
-    conv2 = conv_layer(conv1, [3, 3, output_depth, output_depth], 1)
+
 
     if input_depth != output_depth:
         if projection:
@@ -55,6 +53,8 @@ def residual_block(inpt, output_depth, down_sample, projection=False):
     if bernoulli == 1:
         res = input_layer
     else:
+        conv1 = conv_layer(inpt, [3, 3, input_depth, output_depth], 1)
+        conv2 = conv_layer(conv1, [3, 3, output_depth, output_depth], 1)
         res = conv2 + input_layer
 
     return res

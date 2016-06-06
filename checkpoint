@@ -1,5 +1,0 @@
-model_checkpoint_path: "progress-512"
-all_model_checkpoint_paths: "progress-1024"
-all_model_checkpoint_paths: "progress-1536"
-all_model_checkpoint_paths: "progress-0"
-all_model_checkpoint_paths: "progress-512"

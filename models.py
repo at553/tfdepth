@@ -2,9 +2,6 @@ import tensorflow as tf
 import numpy
 from resnet import softmax_layer, conv_layer, residual_block
 
-n_dict = {20:1, 32:2, 44:3, 56:4}
-
-
 # ResNet architectures used for CIFAR-10
 def resnet(inpt, n):
     if n < 20 or (n - 20) % 12 != 0:

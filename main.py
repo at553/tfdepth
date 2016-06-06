@@ -3,6 +3,7 @@ import cPickle
 import numpy as np
 import tensorflow as tf
 
+
 def unpickle(file):
     fo = open(file, 'rb')
     dict = cPickle.load(fo)
@@ -75,17 +76,18 @@ correct_prediction = tf.equal(tf.argmax(net, 1), tf.argmax(Y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 
 saver = tf.train.Saver()
-checkpoint = tf.train.latest_checkpoint(".")
-if checkpoint:
-    print "Restoring from checkpoint", checkpoint
-    saver.restore(sess, checkpoint)
-else:
-    print "Couldn't find checkpoint to restore from. Starting over."
+# checkpoint = tf.train.latest_checkpoint(".")
+# if checkpoint:
+#     print "Restoring from checkpoint", checkpoint
+#     saver.restore(sess, checkpoint)
+# else:
+#     print "Couldn't find checkpoint to restore from. Starting over."
 
 for j in range (10):
-    for i in range (0, 2000, batch_size):
+    for i in range (0, 50000, batch_size):
         # ResNet Models
         net = models.resnet(X, 20)
+        #print "iter == " + str(i)
         # net = models.resnet(X, 32)
         # net = models.resnet(X, 44)
         # net = models.resnet(X, 56)
@@ -102,8 +104,9 @@ for j in range (10):
             Y: Y_train[i:i + batch_size],
             learning_rate: 0.001}
         sess.run([train_op], feed_dict=feed_dict)
-        if i % 512 == 0:
-            print "training on image #%d" % i
+        # if i % 512 == 0:
+        #     print "training on image #%d" % i
+        if i == 50000:
             saver.save(sess, 'progress', global_step=i)
 
 for i in range (0, 10000, batch_size):
