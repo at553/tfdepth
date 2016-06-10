@@ -1,4 +1,4 @@
-import numpy as np
+from numpy.random import choice
 import tensorflow as tf
 
 
@@ -32,7 +32,10 @@ def conv_layer(inpt, filter_shape, stride):
     return out
 
 def residual_block(inpt, output_depth, down_sample, projection=False):
-    bernoulli = np.random.random_integers(0, 1)
+    val = 1 - .1*(output_depth / 16)
+    bern = [0, 1]
+    survival = [val, 1-val]
+    bernoulli = choice(bern, p=survival)
     input_depth = inpt.get_shape().as_list()[3]
     if down_sample:
         filter_ = [1,2,2,1]

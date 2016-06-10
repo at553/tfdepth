@@ -1,0 +1,6 @@
+model_checkpoint_path: "progress-3072"
+all_model_checkpoint_paths: "progress-1024"
+all_model_checkpoint_paths: "progress-1536"
+all_model_checkpoint_paths: "progress-2048"
+all_model_checkpoint_paths: "progress-2560"
+all_model_checkpoint_paths: "progress-3072"

@@ -59,11 +59,8 @@ Y = tf.placeholder("float", [batch_size, 10])
 learning_rate = tf.placeholder("float", [])
 
 
-# ResNet Models
 net = models.resnet(X, 20)
-# net = models.resnet(X, 32)
-# net = models.resnet(X, 44)
-# net = models.resnet(X, 56)
+
 
 cross_entropy = -tf.reduce_sum(Y*tf.log(net))
 opt = tf.train.MomentumOptimizer(learning_rate, 0.9)
@@ -78,13 +75,11 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 saver = tf.train.Saver()
 
 for j in range (10):
-    for i in range (0, 50000, batch_size):
-        # ResNet Models
+    #49664
+    for i in range (0, 20000, batch_size):
+
         net = models.resnet(X, 20)
         #print "iter == " + str(i)
-        # net = models.resnet(X, 32)
-        # net = models.resnet(X, 44)
-        # net = models.resnet(X, 56)
 
         cross_entropy = -tf.reduce_sum(Y * tf.log(net))
         opt = tf.train.MomentumOptimizer(learning_rate, 0.9)
@@ -100,7 +95,6 @@ for j in range (10):
         sess.run([train_op], feed_dict=feed_dict)
         if i % 512 == 0:
             print "training on image #%d" % i + " " + "outerloop" + str(j)
-        if i + batch_size > 50000:
             saver.save(sess, 'progress', global_step=i)
 
 for i in range (0, 10000, batch_size):
